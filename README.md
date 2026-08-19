@@ -1,59 +1,71 @@
-# Cadence | Engineering Showcase
+# Cadence — Acdyon Frontend Challenge (Part 2)
 
-A high-fidelity, interactive landing page built to demonstrate advanced frontend engineering capabilities. Cadence goes beyond standard web design by implementing complex UI interactions, scroll-triggered physics animations, and custom 3D elements.
+Developer velocity intelligence for engineering leads. A landing page built for the Acdyon "Build It Like You Mean It" assessment.
 
-## 🚀 Overview
+## Live demo
 
-This project was built as an assessment showcase to highlight an uncompromising approach to craft, performance, and user experience. 
+https://cadencelanding-five.vercel.app
 
-Instead of relying on heavy frameworks or pre-built UI libraries, Cadence is constructed from the ground up using a lean stack to ensure sub-100ms Hot Module Replacement (HMR) and a minimal production bundle. It features a fully custom physics-based cursor, staggered entrance sequences, and a dynamic product demo toggle.
+## What to try (60-second reviewer path)
 
-## 🛠 Tech Stack
+1. **Simulate Deploy** — click the green button in the hero. Watch the CI/CD pipeline run and the dashboard deployment count tick up.
+2. **Product demo toggle** — scroll to "Live product demo" and switch between *This week* and *Last week*. Interactive UI with sample data, not a screenshot.
+3. **Easter egg** — Konami code: `↑ ↑ ↓ ↓ ← → ← → B A` (hint in the footer).
 
-*   **Core:** React 18 + Vite
-*   **Styling:** Vanilla CSS Modules (deliberately chosen over Tailwind for total control over animation timing and pseudo-elements without build-step dependency).
-*   **Animations:** Framer Motion (for spring-physics exit animations and scroll-triggered reveals)
-*   **3D / WebGL:** Three.js (for the custom interactive background)
-*   **Icons:** Lucide React
+## Stack
 
-## ✨ Key Technical Features
+| Layer | Choice | Why |
+|-------|--------|-----|
+| Build | Vite + React 18 | Single page, no SSR needed — lean bundle, fast HMR |
+| Styles | CSS Modules | Full control over animation timing without utility-class abstraction |
+| Motion | Framer Motion | Scroll reveals and spring transitions without manual observers |
+| Icons | Lucide React | Tree-shakeable, consistent stroke |
 
-*   **Interactive Product Demo:** Not just static screenshots. The product demo features a week-toggle interaction that feels genuinely dynamic and responsive.
-*   **Physics-Based UI:** Utilizing custom hooks (`useParallax.js`) to calculate tilt sensitivity formulas and create a sense of depth that responds to user input.
-*   **Advanced Animations:** Complex stagger sequences, gradient orb drift animations, and fluid entrance reveals carefully choreographed using custom timing curves and easing values.
-*   **Hidden Interactions:** Includes a custom Konami code sequence detector (`useKonami.js`) built from scratch—a subtle nod to technical depth.
+## Design decisions
 
-## 🧠 Engineering Decisions
+### 1. Why this stack over the obvious alternative?
 
-Every dependency in this project earned its place:
+**Vite + React over Next.js:** No routing or server data on a one-page layout. Next.js adds SSR machinery with zero user-facing benefit here.
 
-1.  **Vite + React over Next.js:** A landing page has no routing needs and no server-side data requirements. Next.js adds SSR machinery with zero user-facing benefit for a single-page layout. Vite keeps the architecture lean and incredibly fast.
-2.  **Vanilla CSS over Utility Classes:** For a design-heavy, animation-rich showcase, pure CSS modules grant absolute control. Reviewers can read the styles directly without navigating a utility class abstraction.
-3.  **Framer Motion over Vanilla IntersectionObservers:** Spring-physics and complex staggered entrance sequences require either Framer Motion or hundreds of lines of manual `IntersectionObserver` + `requestAnimationFrame` code. Framer Motion provides the physics feel natively in a fraction of the code.
+**CSS Modules over Tailwind:** Judges can read styles directly. Animation timing, pseudo-elements, and responsive behavior stay explicit.
 
-## 🚀 Running Locally
+**Framer Motion over CSS-only:** `whileInView`, `AnimatePresence`, and staggered entrances would need ~400 lines of IntersectionObserver + rAF code otherwise.
 
-To run this project locally and explore the code:
+**CSS background over Three.js:** WebGL added ~600 KB and hurt mobile load with no product payoff. Replaced with lightweight CSS orbs.
+
+### 2. One trade-off under the time limit
+
+The CTA form is a client-side mock (timeout → success state, labeled "Demo only"). With a real week: wire to Resend + Supabase, store emails, send confirmation.
+
+Product demo metrics are hardcoded. With more time: a tiny API returning realistic weekly snapshots so the toggle feels dynamic across sessions.
+
+### 3. Where I used AI tools
+
+**AI assisted:** Component boilerplate scaffolding, SVG sparkline coordinate math, CSS keyframe drafts.
+
+**Personally verified or wrote:** Animation easing values, `useParallax.js` tilt formula, `useKonami.js` sequence detector, all product copy, honest stat footnotes (no fabricated user counts), deploy simulation interaction, color palette, easter egg hint.
+
+## Honesty choices (intentional)
+
+- No fake testimonials, logo walls, or invented waitlist numbers
+- Stats section uses product facts only (4 DORA metrics, metadata-only storage, etc.)
+- Product demo disclaimer labels data as synthetic
+- CTA success state explicitly says no email is stored
+
+## Run locally
 
 ```bash
-# Clone the repository
-git clone https://github.com/jyotsnak1603/AcdyonAssessment.git
-
-# Navigate to the project directory
-cd AcdyonAssessment
-
-# Install dependencies
+git clone https://github.com/jyotsnak1603/cadencelanding.git
+cd cadencelanding
 npm install
-
-# Start the local development server
 npm run dev
 ```
 
-## 📝 Next Steps (Future Roadmap)
-
-Given more time, future iterations would include:
-*   Wiring the CTA email form to a real backend (e.g., Resend + Supabase) to manage waitlist positions dynamically.
-*   Replacing hardcoded product demo data with an API endpoint that returns randomized-but-realistic metric snapshots.
+```bash
+npm run build   # production build
+npm run preview # preview production output
+```
 
 ---
-*Built with deliberate craft and an obsession for detail.*
+
+Built for the Acdyon Technologies frontend challenge — Part 2: The Premium Home Page.
