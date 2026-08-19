@@ -23,6 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 
-# Personal Notes
-DECISIONS.md
 vite.config.js.timestamp-*.mjs
